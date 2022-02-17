@@ -10,7 +10,7 @@ require_once "php/createDb.php";
 require_once "php/component.php";
 
 //accessing the database
-$db = new createDb("productb");
+$db = new createDb("Productb");
 
 //confirming if the user wants to remove some items from the cart
 if (isset($_POST['remove'])) {

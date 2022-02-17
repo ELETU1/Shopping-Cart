@@ -28,11 +28,6 @@ class CreateDb
 
         //creating a new connection to the database
         $this->con = mysqli_connect($this->server_name, $this->username, $this->password);
-
-        //checking if the connection is successful
-        if (!$this->con) {
-            die("Connection failed : " . mysqli_connect_error());
-        }
         //connecting to the created database inorder to create a table
         $this->con = mysqli_connect($this->server_name, $this->username, $this->password, $this->db_name);
         if ($this->con) {
@@ -56,7 +51,6 @@ class CreateDb
     //creating a method to get product from database
     public function getData()
     {
-        $this->con = mysqli_connect($this->server_name, $this->username, $this->password, $this->db_name);
         $sql = "select * from $this->table_name";
 
         $result = mysqli_query($this->con, $sql);

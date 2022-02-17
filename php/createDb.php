@@ -56,6 +56,7 @@ class CreateDb
     //creating a method to get product from database
     public function getData()
     {
+        $this->con = mysqli_connect($this->server_name, $this->username, $this->password, $this->db_name);
         $sql = "select * from $this->table_name";
 
         $result = mysqli_query($this->con, $sql);

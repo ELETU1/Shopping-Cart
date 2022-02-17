@@ -3,19 +3,27 @@
 //creating a script for creating database
 class CreateDb
 {
-    //creating the properties
+    /*creating the properties for localhost
     public $server_name = "localhost:3307";
     public $username = "root";
     public $password = "";
     public $db_name;
     public $table_name;
     public $con;
+     */
+
+    //creating the properties for remote
+    public $server_name = "remotemysql.com";
+    public $username = "WurS9LGxFo";
+    public $password = "quPj8iA7RD";
+    public $db_name = "WurS9LGxFo";
+    public $table_name;
+    public $con;
 
     //creating the class constructor
-    public function __construct($db_name, $table_name)
+    public function __construct($table_name)
     {
         //initialing the properties
-        $this->db_name = $db_name;
         $this->table_name = $table_name;
 
         //creating a new connection to the database
@@ -25,15 +33,9 @@ class CreateDb
         if (!$this->con) {
             die("Connection failed : " . mysqli_connect_error());
         }
-
-        //writing the query to create new database to store the product chosen
-        $sql = "create database if not exists $db_name";
-
-        //executing the query
-        if (mysqli_query($this->con, $sql)) {
-            //connecting to the created database inorder to create a table
-            $this->con = mysqli_connect($this->server_name, $this->username, $this->password, $db_name);
-
+        //connecting to the created database inorder to create a table
+        $this->con = mysqli_connect($this->server_name, $this->username, $this->password, $this->db_name);
+        if ($this->con) {
             //writing query to create new table
             $sql = "create table if not exists $table_name
                (id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -42,14 +44,13 @@ class CreateDb
                product_image VARCHAR(100)
             );";
 
-            //checking if the query executed successfully
+//checking if the query executed successfully
             if (!mysqli_query($this->con, $sql)) {
                 echo "Error creating the table : " . mysqli_error($this->con);
             }
 
-        } else {
-            return false;
         }
+
     }
 
     //creating a method to get product from database
